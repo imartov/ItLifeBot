@@ -7,12 +7,17 @@ bot = telebot.TeleBot('6241547749:AAHnvFfdq9unR-HxVzzxF2EK5O02DVvsdhY')
 
 @bot.message_handler(commands=['site', 'website', 'page'])
 def main(message):
-    webbrowser.open('https://github.com/imartov')
+    webbrowser.open('https://github.com/imartov')       # переходит по указанному url-адресу
 
 
 @bot.message_handler(commands=['start'])             # содержит список команд
 def main(message):
     bot.send_message(message.chat.id, 'Привет')      # вывод сообщения
+
+
+@bot.message_handler(content_types=['audio', 'video', 'photo'])     # принимает файл
+def get_file(message):
+    bot.reply_to(message.chat.id, 'Какое красивое фото')
 
 
 @bot.message_handler(commands=['hello'])
@@ -31,6 +36,13 @@ def main(message):
         bot.send_message(message.chat.id, f'Hello, {message.from_user.first_name} {message.from_user.last_name}')
     elif message.text.lower() == 'id':
         bot.reply_to(message, f'ID: {message.from_user.id}')    # ответ на предыдущее сообщение (закрепление)
+
+
+'''
+Существует два вида кнопок:
+1. Inline - отображаются около сообщения
+2. Меню - отображаются в меню
+'''
     
 
 bot.infinity_polling()                              # будет работать постоянно

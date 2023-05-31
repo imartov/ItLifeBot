@@ -16,11 +16,13 @@ def main(message):
     bot.send_message(message.chat.id, 'Привет')      # вывод сообщения
 
 
-@bot.message_handler(content_types=['photo'])       # принимает файл
+@bot.message_handler(commands=['photo'])        # принимает файл
 def get_file(message):
     markup = types.InlineKeyboardMarkup()                                                               # добавляется кнопка к сообщению
-    markup.add(types.InlineKeyboardButton('Перейти на сайт', url='https://github.com/imartov'))
-    bot.reply_to(message.chat.id, 'Какое красивое фото', reply_markup=markup)
+    markup.add(types.InlineKeyboardButton('Перейти на сайт', url='https://github.com/imartov'))         # непосредственно кнопки
+    markup.add(types.InlineKeyboardButton('Удалить фото', callback_data='delete'))                      # callback_data выполняет какое-то действие
+    markup.add(types.InlineKeyboardButton('Изменить текст', callback_data='edit'))
+    bot.reply_to(message, 'Какое красивое фото', reply_markup=markup)
 
 
 @bot.message_handler(commands=['hello'])
